@@ -10,7 +10,7 @@
         echo json_encode(['error' => 'Логин и пароль обязательны']);
         exit;
     }
-    
+
     $url = 'http://auth.permaviat.ru/index.php';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -24,12 +24,14 @@
     if ($http_code == 200) {
         $response_data = json_decode($response, true);
         
-        if (isset($response_data['token'])) {
+        if (isset($response_data['token'])) 
+        {
             $token = $response_data['token'];
             $_SESSION['token'] = $token;
             header('Content-Type: application/json');
             echo json_encode(['token' => $token]);
-        } else {
+        } else 
+        { 
             header('HTTP/1.0 500 Internal Server Error');
             echo json_encode(['error' => 'Токен не получен']);
         }
